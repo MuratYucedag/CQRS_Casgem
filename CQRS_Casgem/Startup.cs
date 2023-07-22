@@ -27,6 +27,9 @@ namespace CQRS_Casgem
         {
             services.AddDbContext<Context>();
             services.AddScoped<GetProductQueryHandler>();
+            services.AddScoped<CreateProductCommandHandler>();
+            services.AddScoped<RemoveProductCommandHandler>();
+
             services.AddControllersWithViews();
         }
 
