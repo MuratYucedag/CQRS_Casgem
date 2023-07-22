@@ -30,6 +30,8 @@ namespace CQRS_Casgem
             services.AddScoped<CreateProductCommandHandler>();
             services.AddScoped<RemoveProductCommandHandler>();
             services.AddScoped<GetProductByIDQueryHandler>();
+            services.AddScoped<GetProductUpdateByIDQueryHandler>();
+            services.AddScoped<UpdateProductCommandHandler>();
 
             services.AddControllersWithViews();
         }

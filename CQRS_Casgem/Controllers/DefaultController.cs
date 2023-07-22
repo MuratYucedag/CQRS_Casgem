@@ -13,13 +13,15 @@ namespace CQRS_Casgem.Controllers
         private readonly RemoveProductCommandHandler _removeProductCommandHandler;
         private readonly GetProductByIDQueryHandler _getProductByIDQueryHandler;
         private readonly GetProductUpdateByIDQueryHandler _getProductUpdateByIDQueryHandler;
-        public DefaultController(GetProductQueryHandler getProductQueryHandler, CreateProductCommandHandler createProductCommandHandler, RemoveProductCommandHandler removeProductCommandHandler, GetProductByIDQueryHandler getProductByIDQueryHandler, GetProductUpdateByIDQueryHandler getProductUpdateByIDQueryHandler)
+        private readonly UpdateProductCommandHandler _updateProductCommandHandler;
+        public DefaultController(GetProductQueryHandler getProductQueryHandler, CreateProductCommandHandler createProductCommandHandler, RemoveProductCommandHandler removeProductCommandHandler, GetProductByIDQueryHandler getProductByIDQueryHandler, GetProductUpdateByIDQueryHandler getProductUpdateByIDQueryHandler, UpdateProductCommandHandler updateProductCommandHandler)
         {
             _getProductQueryHandler = getProductQueryHandler;
             _createProductCommandHandler = createProductCommandHandler;
             _removeProductCommandHandler = removeProductCommandHandler;
             _getProductByIDQueryHandler = getProductByIDQueryHandler;
             _getProductUpdateByIDQueryHandler = getProductUpdateByIDQueryHandler;
+            _updateProductCommandHandler = updateProductCommandHandler;
         }
         public IActionResult Index()
         {
@@ -56,6 +58,12 @@ namespace CQRS_Casgem.Controllers
         {
             var value = _getProductUpdateByIDQueryHandler.Handle(new GetProductUpdateByIDQuery(id));
             return View(value);
+        }
+        [HttpPost]
+        public IActionResult UpdateProduct(UpdateProductCommand command)
+        {
+            _updateProductCommandHandler.Handle(command);
+            return RedirectToAction("Index");
         }
     }
 }
